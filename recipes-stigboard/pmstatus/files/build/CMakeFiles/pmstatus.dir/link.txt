@@ -1,1 +1,0 @@
-/usr/bin/c++      CMakeFiles/pmstatus.dir/src/pmstatus.cc.o CMakeFiles/pmstatus.dir/src/packet_control_interface.cc.o CMakeFiles/pmstatus.dir/src/uart_socket.cc.o  -o pmstatus -rdynamic 
