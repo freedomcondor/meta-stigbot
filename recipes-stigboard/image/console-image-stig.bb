@@ -4,7 +4,9 @@ HOMEPAGE = "http://www.jumpnowtek.com"
 IMAGE_FEATURES += "package-management"
 IMAGE_LINGUAS = "en-us"
 
-inherit core-image
+IMAGE_FEATURES += "package-management x11-base opengl"
+REQUIRED_DISTRO_FEATURES = "x11 opengl"
+inherit core-image distro_features_check
 
 CORE_OS = " \
     busybox-hwclock \
