@@ -1,0 +1,90 @@
+From 29eb6c81bab33a0f4982bd46f6cba9083589e0a3 Mon Sep 17 00:00:00 2001
+From: freedomcondor <zhuweixu_harry@126.com>
+Date: Fri, 9 Feb 2018 17:07:20 +0100
+Subject: [PATCH] add changes
+
+---
+ drivers/tty/serial/sc16is7xx.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index ca54ce0..7f76762 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -1154,6 +1154,8 @@ static int sc16is7xx_probe(struct device *dev,
+ 	int i, ret;
+ 	struct sc16is7xx_port *s;
+ 
++	dev_err(dev, "I am Harry\n");
++
+ 	if (IS_ERR(regmap))
+ 		return PTR_ERR(regmap);
+ 
+@@ -1166,6 +1168,8 @@ static int sc16is7xx_probe(struct device *dev,
+ 		return -ENOMEM;
+ 	}
+ 
++	dev_err(dev, "after allocating\n");
++
+ 	s->clk = devm_clk_get(dev, NULL);
+ 	if (IS_ERR(s->clk)) {
+ 		if (pfreq)
+@@ -1177,6 +1181,8 @@ static int sc16is7xx_probe(struct device *dev,
+ 		freq = clk_get_rate(s->clk);
+ 	}
+ 
++	dev_err(dev, "after clock\n");
++
+ 	s->regmap = regmap;
+ 	s->devtype = devtype;
+ 	dev_set_drvdata(dev, s);
+@@ -1191,6 +1197,8 @@ static int sc16is7xx_probe(struct device *dev,
+ 	}
+ 	sched_setscheduler(s->kworker_task, SCHED_FIFO, &sched_param);
+ 
++	dev_err(dev, "before config gpiolib\n");
++
+ #ifdef CONFIG_GPIOLIB
+ 	if (devtype->nr_gpio) {
+ 		/* Setup GPIO cotroller */
+@@ -1208,12 +1216,18 @@ static int sc16is7xx_probe(struct device *dev,
+ 		if (ret)
+ 			goto out_thread;
+ 	}
++
++	dev_err(dev, "inside gpioconfig\n");
++
+ #endif
+ 
++	dev_err(dev, "before reset device and maping\n");
+ 	/* reset device, purging any pending irq / data */
+ 	regmap_write(s->regmap, SC16IS7XX_IOCONTROL_REG << SC16IS7XX_REG_SHIFT,
+ 			SC16IS7XX_IOCONTROL_SRESET_BIT);
+ 
++	dev_err(dev, "before for uart n = %d\n",devtype->nr_uart);
++
+ 	for (i = 0; i < devtype->nr_uart; ++i) {
+ 		s->p[i].line		= i;
+ 		/* Initialize port data */
+@@ -1263,12 +1277,18 @@ static int sc16is7xx_probe(struct device *dev,
+ 		sc16is7xx_power(&s->p[i].port, 0);
+ 	}
+ 
++	dev_err(dev, "after for uart\n");
++
+ 	/* Setup interrupt */
+ 	ret = devm_request_irq(dev, irq, sc16is7xx_irq,
+ 			       flags, dev_name(dev), s);
++
++	dev_err(dev, "after set interrupt\n");
++
+ 	if (!ret)
+ 		return 0;
+ 
++	dev_err(dev, "before out_ports\n");
+ out_ports:
+ 	for (i--; i >= 0; i--) {
+ 		uart_remove_one_port(&sc16is7xx_uart, &s->p[i].port);
+-- 
+2.7.4
+

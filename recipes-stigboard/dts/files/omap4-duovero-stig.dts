@@ -1,0 +1,152 @@
+/*
+ * Copyright (C) 2014 Florian Vaussard, EPFL Mobots group
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+/dts-v1/;
+
+#include "omap4-duovero.dtsi"
+
+#include <dt-bindings/input/input.h>
+
+/ {
+	model = "OMAP4430 Gumstix Duovero on Parlor";
+	compatible = "gumstix,omap4-duovero-parlor", "gumstix,omap4-duovero", "ti,omap4430", "ti,omap4";
+
+	uart56_osc: uart56_osc {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <1843200>;
+	};
+
+	uart78_osc: uart78_osc {
+		compatible = "fixed-clock";
+		#clock-cells = <0>;
+		clock-frequency = <1843200>;
+	};
+
+	uart56_clk: uart56_clk {
+		compatible = "gpio-gate-clock";
+		clocks = <&uart56_osc>;
+		#clock-cells = <0>;
+		enable-gpios = <&gpio3 17 GPIO_ACTIVE_HIGH>; /* cam_shutter.gpio_81: uart56_clk_en */
+	};
+
+	uart78_clk: uart78_clk {
+		compatible = "gpio-gate-clock";
+		clocks = <&uart78_osc>;
+		#clock-cells = <0>;
+		enable-gpios = <&gpio3 18 GPIO_ACTIVE_HIGH>; /* cam_strobe.gpio_82: uart78_clk_en */
+	};
+};
+
+&omap4_pmx_core {
+	pinctrl-0 = <
+			&uart56ctrl_pins
+			&uart78ctrl_pins
+	>;
+
+	i2c2_pins: pinmux_i2c2_pins {
+		pinctrl-single,pins = <
+			OMAP4_IOPAD(0x126, PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c2_scl */
+			OMAP4_IOPAD(0x128, PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c2_sda */
+		>;
+	};
+
+	i2c3_pins: pinmux_i2c3_pins {
+		pinctrl-single,pins = <
+			OMAP4_IOPAD(0x12a, PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c3_scl */
+			OMAP4_IOPAD(0x12c, PIN_INPUT_PULLUP | MUX_MODE0)	/* i2c3_sda */
+		>;
+	};
+
+	uart56ctrl_pins: pinmux_uart56ctrl_pins {
+		pinctrl-single,pins = <
+			OMAP4_IOPAD(0x068, PIN_INPUT_PULLUP | MUX_MODE3)	/* gpmc_a20.gpio_44: uart56_irq */
+			OMAP4_IOPAD(0x06a, PIN_INPUT_PULLUP | MUX_MODE3)	/* gpmc_a21.gpio_45: uart56_nrst */
+			OMAP4_IOPAD(0x0bc, PIN_OUTPUT | MUX_MODE3)		/* cam_shutter.gpio_81: uart56_clk_en */
+		>;
+	};
+
+	uart78ctrl_pins: pinmux_uart78ctrl_pins {
+		pinctrl-single,pins = <
+			OMAP4_IOPAD(0x070, PIN_INPUT_PULLUP | MUX_MODE3)	/* gpmc_a24.gpio_48: uart78_irq */
+			OMAP4_IOPAD(0x06c, PIN_INPUT_PULLUP | MUX_MODE3)	/* gpmc_a24.gpio_46: uart78_nrst */
+			OMAP4_IOPAD(0x0be, PIN_OUTPUT | MUX_MODE3)		/* cam_strobe.gpio_82: uart78_clk_en */
+		>;
+	};
+};
+
+&i2c2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c2_pins>;
+
+	clock-frequency = <400000>;
+
+	pca9632_1: pca9632@10 {
+		compatible = "nxp,pca9635";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		reg = <0x10>;
+
+		leddeck1_red@0    { label = "led_deck[1]:red";   reg = <0>; };
+		leddeck1_green@1  { label = "led_deck[1]:green"; reg = <1>; };
+		leddeck1_blue@2   { label = "led_deck[1]:blue";  reg = <2>; };
+		leddeck2_red@4    { label = "led_deck[2]:red";   reg = <4>; };
+		leddeck2_green@5  { label = "led_deck[2]:green"; reg = <5>; };
+		leddeck2_blue@6   { label = "led_deck[2]:blue";  reg = <6>; };
+		leddeck3_red@8    { label = "led_deck[3]:red";   reg = <8>; };
+		leddeck3_green@9  { label = "led_deck[3]:green"; reg = <9>; };
+		leddeck3_blue@10  { label = "led_deck[3]:blue";  reg = <10>; };
+		leddeck4_red@12   { label = "led_deck[4]:red";   reg = <12>; };
+		leddeck4_green@13 { label = "led_deck[4]:green"; reg = <13>; };
+		leddeck4_blue@14  { label = "led_deck[4]:blue";  reg = <14>; };
+		unused0@3  { reg = <3>; };
+		unused1@7  { reg = <7>; };
+		unused2@11 { reg = <11>; };
+		unused3@15 { reg = <15>; };
+	};
+
+	uart56: sc16is762@48 {
+		compatible = "nxp,sc16is762";
+		reg = <0x48>;
+		clocks = <&uart56_clk>;
+
+		interrupt-parent = <&gpio2>;
+		interrupts = <12 IRQ_TYPE_EDGE_FALLING>; /* gpmc_a20.gpio_44 */
+	};
+
+	uart78: sc16is762@49 {
+		compatible = "nxp,sc16is762";
+		reg = <0x49>;
+		clocks = <&uart78_clk>;
+
+		interrupt-parent = <&gpio2>;
+		interrupts = <16 IRQ_TYPE_EDGE_FALLING>; /* gpmc_a24.gpio_48 */
+	};
+};
+
+&i2c3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&i2c3_pins>;
+
+	clock-frequency = <100000>;
+
+	/* optional 1K EEPROM with revision information */
+	eeprom@51 {
+		compatible = "atmel,24c01";
+		reg = <0x51>;
+		pagesize = <8>;
+	};
+};
+
+&mmc3 {
+	status = "disabled";
+};
+
+&uart3 {
+	interrupts-extended = <&wakeupgen GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH
+			       &omap4_pmx_core OMAP4_UART3_RX>;
+};

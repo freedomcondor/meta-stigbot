@@ -1,0 +1,35 @@
+From 6557003cdebb9f4cb27cab2f1bc737ad3a318bdf Mon Sep 17 00:00:00 2001
+From: freedomcondor <zhuweixu_harry@126.com>
+Date: Mon, 12 Feb 2018 16:56:38 +0100
+Subject: [PATCH] marked irq
+
+---
+ kernel/irq/devres.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/irq/devres.c b/kernel/irq/devres.c
+index 194c506..fcd0a4c 100644
+--- a/kernel/irq/devres.c
++++ b/kernel/irq/devres.c
+@@ -58,7 +58,10 @@ int devm_request_threaded_irq(struct device *dev, unsigned int irq,
+ 	dr = devres_alloc(devm_irq_release, sizeof(struct irq_devres),
+ 			  GFP_KERNEL);
+ 	if (!dr)
++	{
++		pr_err("in devm_request_threaded_irq: before return -ENOMEM");
+ 		return -ENOMEM;
++	}
+ 
+ 	if (!devname)
+ 		devname = dev_name(dev);
+@@ -67,6 +70,7 @@ int devm_request_threaded_irq(struct device *dev, unsigned int irq,
+ 				  dev_id);
+ 	if (rc) {
+ 		devres_free(dr);
++		pr_err("in devm_request_threaded_irq: before return rc");
+ 		return rc;
+ 	}
+ 
+-- 
+2.7.4
+

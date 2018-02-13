@@ -1,0 +1,97 @@
+From 79eec9cca5c6e40d83270c73f9c4070ea3077657 Mon Sep 17 00:00:00 2001
+From: freedomcondor <zhuweixu_harry@126.com>
+Date: Sun, 11 Feb 2018 19:54:23 +0100
+Subject: [PATCH] markedsc16
+
+---
+ drivers/tty/serial/sc16is7xx.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
+
+diff --git a/drivers/tty/serial/sc16is7xx.c b/drivers/tty/serial/sc16is7xx.c
+index ca54ce0..86f8e5c 100644
+--- a/drivers/tty/serial/sc16is7xx.c
++++ b/drivers/tty/serial/sc16is7xx.c
+@@ -1154,6 +1154,8 @@ static int sc16is7xx_probe(struct device *dev,
+ 	int i, ret;
+ 	struct sc16is7xx_port *s;
+ 
++	dev_err(dev, "I am Harry\n");
++
+ 	if (IS_ERR(regmap))
+ 		return PTR_ERR(regmap);
+ 
+@@ -1166,17 +1168,24 @@ static int sc16is7xx_probe(struct device *dev,
+ 		return -ENOMEM;
+ 	}
+ 
++	dev_err(dev, "after allocating\n");
++
+ 	s->clk = devm_clk_get(dev, NULL);
+ 	if (IS_ERR(s->clk)) {
+ 		if (pfreq)
+ 			freq = *pfreq;
+ 		else
++		{
++			dev_err(dev, "before clk return error\n");
+ 			return PTR_ERR(s->clk);
++		}
+ 	} else {
+ 		clk_prepare_enable(s->clk);
+ 		freq = clk_get_rate(s->clk);
+ 	}
+ 
++	dev_err(dev, "after clock\n");
++
+ 	s->regmap = regmap;
+ 	s->devtype = devtype;
+ 	dev_set_drvdata(dev, s);
+@@ -1191,6 +1200,8 @@ static int sc16is7xx_probe(struct device *dev,
+ 	}
+ 	sched_setscheduler(s->kworker_task, SCHED_FIFO, &sched_param);
+ 
++	dev_err(dev, "before config gpiolib\n");
++
+ #ifdef CONFIG_GPIOLIB
+ 	if (devtype->nr_gpio) {
+ 		/* Setup GPIO cotroller */
+@@ -1208,12 +1219,18 @@ static int sc16is7xx_probe(struct device *dev,
+ 		if (ret)
+ 			goto out_thread;
+ 	}
++
++	dev_err(dev, "inside gpioconfig\n");
++
+ #endif
+ 
++	dev_err(dev, "before reset device and maping\n");
+ 	/* reset device, purging any pending irq / data */
+ 	regmap_write(s->regmap, SC16IS7XX_IOCONTROL_REG << SC16IS7XX_REG_SHIFT,
+ 			SC16IS7XX_IOCONTROL_SRESET_BIT);
+ 
++	dev_err(dev, "before for uart n = %d\n",devtype->nr_uart);
++
+ 	for (i = 0; i < devtype->nr_uart; ++i) {
+ 		s->p[i].line		= i;
+ 		/* Initialize port data */
+@@ -1263,12 +1280,18 @@ static int sc16is7xx_probe(struct device *dev,
+ 		sc16is7xx_power(&s->p[i].port, 0);
+ 	}
+ 
++	dev_err(dev, "after for uart\n");
++
+ 	/* Setup interrupt */
+ 	ret = devm_request_irq(dev, irq, sc16is7xx_irq,
+ 			       flags, dev_name(dev), s);
++
++	dev_err(dev, "after set interrupt\n");
++
+ 	if (!ret)
+ 		return 0;
+ 
++	dev_err(dev, "before out_ports\n");
+ out_ports:
+ 	for (i--; i >= 0; i--) {
+ 		uart_remove_one_port(&sc16is7xx_uart, &s->p[i].port);
+-- 
+2.7.4
+

@@ -1,0 +1,137 @@
+--- Starting bitbake server pid 8430 at 2018-02-05 16:26:55.241047 ---
+Started bitbake server pid 8430
+Entering server connection loop
+Accepting [<socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>]
+Connecting Client
+Running command ['setFeatures', [2, 1]]
+Running command ['updateConfig', {'prefile': [], 'server_timeout': None, 'extra_assume_provided': [], 'verbose': False, 'debug': 0, 'dry_run': False, 'invalidate_stamp': None, 'profile': False, 'debug_domains': [], 'force': False, 'abort': True, 'dump_signatures': [], 'postfile': []}, {'LESSOPEN': '| /usr/bin/lesspipe %s', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'VTE_VERSION': '4205', 'LC_TIME': 'en_US.UTF-8', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'JOB': 'unity-settings-daemon', 'PAPERSIZE': 'letter', 'UPSTART_JOB': 'unity7', 'PWD': '/home/harry/stigbot/meta-stigbot', 'GTK_IM_MODULE': 'fcitx', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'DESKTOP_SESSION': 'ubuntu', 'USER': 'harry', '_': '/home/harry/poky-rocko/scripts/recipetool', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/var/lib/snapd/desktop', 'XDG_SESSION_ID': 'c2', 'GTK_MODULES': 'gail:atk-bridge:unity-gtk-module', 'LC_MEASUREMENT': 'en_US.UTF-8', 'TERM': 'xterm-256color', 'DEFAULTS_PATH': '/usr/share/gconf/ubuntu.default.path', 'SHLVL': '1', 'BUILDDIR': '/home/harry/stigbot/build', 'HOME': '/home/harry', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ', 'COMPIZ_CONFIG_PROFILE': 'ubuntu', 'GDM_LANG': 'en', 'WINDOWID': '65014261', 'UPSTART_SESSION': 'unix:abstract=/com/ubuntu/upstart-session/1000/1807', 'GTK2_MODULES': 'overlay-scrollbar', 'SESSION_MANAGER': 'local/harry-System-Product-Name:@/tmp/.ICE-unix/2038,unix/harry-System-Product-Name:/tmp/.ICE-unix/2038', 'XDG_SESSION_TYPE': 'x11', 'QT_QPA_PLATFORMTHEME': 'appmenu-qt5', 'LC_ADDRESS': 'en_US.UTF-8', 'QT_LINUX_ACCESSIBILITY_ALWAYS_ON': '1', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/harry', 'XDG_RUNTIME_DIR': '/run/user/1000', 'XDG_MENU_PREFIX': 'gnome-', 'QT4_IM_MODULE': 'fcitx', 'SESSION': 'ubuntu', 'XAUTHORITY': '/home/harry/.Xauthority', 'QT_ACCESSIBILITY': '1', 'COMPIZ_BIN_PATH': '/usr/bin/', 'XMODIFIERS': '@im=fcitx', 'DISPLAY': ':0', 'MANDATORY_PATH': '/usr/share/gconf/ubuntu.mandatory.path', 'XDG_VTNR': '7', 'LOGNAME': 'harry', 'UPSTART_INSTANCE': '', 'XDG_SEAT': 'seat0', 'GDMSESSION': 'ubuntu', 'LC_ALL': 'en_US.UTF-8', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'LC_NUMERIC': 'en_US.UTF-8', 'LANGUAGE': 'en', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg', 'GPG_AGENT_INFO': '/home/harry/.gnupg/S.gpg-agent:0:1', 'UPSTART_EVENTS': 'xsession started', 'SHELL': '/bin/bash', 'GNOME_KEYRING_CONTROL': '', 'OLDPWD': '/home/harry/stigbot', 'LC_NAME': 'en_US.UTF-8', 'LC_PAPER': 'en_US.UTF-8', 'PATH': '/home/harry/poky-rocko/scripts:/home/harry/poky-rocko/bitbake/bin:/home/harry/bin:/home/harry/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'IM_CONFIG_PHASE': '1', 'CLUTTER_IM_MODULE': 'xim', 'INSTANCE': '', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'LC_MONETARY': 'en_US.UTF-8', 'BBPATH': '/home/harry/stigbot/build', 'XDG_CURRENT_DESKTOP': 'Unity', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'QT_IM_MODULE': 'fcitx', 'SESSIONTYPE': 'gnome-session', 'DBUS_SESSION_BUS_ADDRESS': 'unix:abstract=/tmp/dbus-ORXUlGd7Jl', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'LC_TELEPHONE': 'en_US.UTF-8', 'GNOME_KEYRING_PID': ''}, ['/home/harry/poky-rocko/scripts/recipetool', 'create']]
+Running command ['parseConfiguration']
+Running command ['dataStoreConnectorFindVar', None, 'BBPATH']
+Running command ['dataStoreConnectorFindVar', None, 'TOPDIR']
+Running command ['clientComplete']
+Connecting Client
+Disconnecting Client
+No timeout, exiting.
+Exiting
+--- Starting bitbake server pid 8456 at 2018-02-05 16:28:11.707987 ---
+Started bitbake server pid 8456
+Entering server connection loop
+Accepting [<socket.socket fd=7, family=AddressFamily.AF_UNIX, type=SocketKind.SOCK_STREAM, proto=0, laddr=bitbake.sock>]
+Connecting Client
+Running command ['setFeatures', [2, 1]]
+Running command ['updateConfig', {'dump_signatures': [], 'invalidate_stamp': None, 'force': False, 'postfile': [], 'abort': True, 'prefile': [], 'server_timeout': None, 'verbose': False, 'debug_domains': [], 'extra_assume_provided': [], 'dry_run': False, 'debug': 0, 'profile': False}, {'SESSION_MANAGER': 'local/harry-System-Product-Name:@/tmp/.ICE-unix/2038,unix/harry-System-Product-Name:/tmp/.ICE-unix/2038', 'TERM': 'xterm-256color', 'QT_ACCESSIBILITY': '1', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'XDG_MENU_PREFIX': 'gnome-', 'VTE_VERSION': '4205', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/var/lib/snapd/desktop', 'PATH': '/home/harry/poky-rocko/scripts:/home/harry/poky-rocko/bitbake/bin:/home/harry/bin:/home/harry/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'MANDATORY_PATH': '/usr/share/gconf/ubuntu.mandatory.path', 'XDG_SEAT': 'seat0', 'UPSTART_EVENTS': 'xsession started', 'XDG_SESSION_TYPE': 'x11', 'SESSIONTYPE': 'gnome-session', 'QT_IM_MODULE': 'fcitx', 'CLUTTER_IM_MODULE': 'xim', 'INSTANCE': '', 'LC_NUMERIC': 'en_US.UTF-8', 'UPSTART_JOB': 'unity7', 'PAPERSIZE': 'letter', 'LC_TIME': 'en_US.UTF-8', 'GNOME_KEYRING_CONTROL': '', 'XDG_RUNTIME_DIR': '/run/user/1000', 'COMPIZ_BIN_PATH': '/usr/bin/', 'LC_ADDRESS': 'en_US.UTF-8', 'GDM_LANG': 'en', 'DBUS_SESSION_BUS_ADDRESS': 'unix:abstract=/tmp/dbus-ORXUlGd7Jl', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GTK_MODULES': 'gail:atk-bridge:unity-gtk-module', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'DEFAULTS_PATH': '/usr/share/gconf/ubuntu.default.path', 'BBPATH': '/home/harry/stigbot/build', 'XDG_VTNR': '7', 'LC_TELEPHONE': 'en_US.UTF-8', 'XDG_SESSION_ID': 'c2', 'GDMSESSION': 'ubuntu', 'LOGNAME': 'harry', 'BUILDDIR': '/home/harry/stigbot/build', 'SHELL': '/bin/bash', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg', 'OLDPWD': '/home/harry/stigbot', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'GPG_AGENT_INFO': '/home/harry/.gnupg/S.gpg-agent:0:1', 'XMODIFIERS': '@im=fcitx', 'LC_MONETARY': 'en_US.UTF-8', 'SESSION': 'ubuntu', 'UPSTART_INSTANCE': '', '_': '/home/harry/poky-rocko/scripts/recipetool', 'LC_NAME': 'en_US.UTF-8', 'QT_QPA_PLATFORMTHEME': 'appmenu-qt5', 'LANG': 'en_US.UTF-8', 'QT4_IM_MODULE': 'fcitx', 'SHLVL': '1', 'QT_LINUX_ACCESSIBILITY_ALWAYS_ON': '1', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'USER': 'harry', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/harry', 'GTK2_MODULES': 'overlay-scrollbar', 'XDG_CURRENT_DESKTOP': 'Unity', 'JOB': 'unity-settings-daemon', 'LC_PAPER': 'en_US.UTF-8', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'HOME': '/home/harry', 'XAUTHORITY': '/home/harry/.Xauthority', 'DISPLAY': ':0', 'WINDOWID': '65014261', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/harry/stigbot/meta-stigbot', 'GTK_IM_MODULE': 'fcitx', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'LANGUAGE': 'en', 'IM_CONFIG_PHASE': '1', 'DESKTOP_SESSION': 'ubuntu', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ', 'LC_ALL': 'en_US.UTF-8', 'XDG_SESSION_DESKTOP': 'ubuntu', 'GNOME_KEYRING_PID': '', 'UPSTART_SESSION': 'unix:abstract=/com/ubuntu/upstart-session/1000/1807', 'COMPIZ_CONFIG_PROFILE': 'ubuntu'}, ['/home/harry/poky-rocko/scripts/recipetool', 'create', 'helloHarry.c']]
+Running command ['parseConfiguration']
+Running command ['dataStoreConnectorFindVar', None, 'BBPATH']
+Running command ['dataStoreConnectorFindVar', None, 'TOPDIR']
+Running command ['dataStoreConnectorFindVar', None, 'BASE_WORKDIR']
+Running command ['dataStoreConnectorFindVar', None, 'TMPDIR']
+Running command ['dataStoreConnectorFindVar', None, 'TCLIBCAPPEND']
+Running command ['dataStoreConnectorFindVar', None, 'BASE_WORKDIR']
+Running command ['dataStoreConnectorFindVar', None, 'BBFILES']
+Running command ['updateConfig', {'dump_signatures': [], 'invalidate_stamp': None, 'force': False, 'postfile': [], 'abort': True, 'prefile': [], 'server_timeout': None, 'verbose': False, 'debug_domains': [], 'extra_assume_provided': [], 'dry_run': False, 'debug': 0, 'profile': False}, {'SESSION_MANAGER': 'local/harry-System-Product-Name:@/tmp/.ICE-unix/2038,unix/harry-System-Product-Name:/tmp/.ICE-unix/2038', 'TERM': 'xterm-256color', 'QT_ACCESSIBILITY': '1', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'XDG_MENU_PREFIX': 'gnome-', 'VTE_VERSION': '4205', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop:/var/lib/snapd/desktop', 'PATH': '/home/harry/poky-rocko/scripts:/home/harry/poky-rocko/bitbake/bin:/home/harry/bin:/home/harry/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'MANDATORY_PATH': '/usr/share/gconf/ubuntu.mandatory.path', 'XDG_SEAT': 'seat0', 'UPSTART_EVENTS': 'xsession started', 'XDG_SESSION_TYPE': 'x11', 'SESSIONTYPE': 'gnome-session', 'QT_IM_MODULE': 'fcitx', 'CLUTTER_IM_MODULE': 'xim', 'INSTANCE': '', 'LC_NUMERIC': 'en_US.UTF-8', 'UPSTART_JOB': 'unity7', 'PAPERSIZE': 'letter', 'LC_TIME': 'en_US.UTF-8', 'GNOME_KEYRING_CONTROL': '', 'XDG_RUNTIME_DIR': '/run/user/1000', 'COMPIZ_BIN_PATH': '/usr/bin/', 'LC_ADDRESS': 'en_US.UTF-8', 'GDM_LANG': 'en', 'DBUS_SESSION_BUS_ADDRESS': 'unix:abstract=/tmp/dbus-ORXUlGd7Jl', 'LC_MEASUREMENT': 'en_US.UTF-8', 'GTK_MODULES': 'gail:atk-bridge:unity-gtk-module', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'DEFAULTS_PATH': '/usr/share/gconf/ubuntu.default.path', 'BBPATH': '/home/harry/stigbot/build', 'XDG_VTNR': '7', 'LC_TELEPHONE': 'en_US.UTF-8', 'XDG_SESSION_ID': 'c2', 'GDMSESSION': 'ubuntu', 'LOGNAME': 'harry', 'BUILDDIR': '/home/harry/stigbot/build', 'SHELL': '/bin/bash', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/usr/share/upstart/xdg:/etc/xdg', 'OLDPWD': '/home/harry/stigbot', 'XDG_SESSION_PATH': '/org/freedesktop/DisplayManager/Session0', 'XDG_SEAT_PATH': '/org/freedesktop/DisplayManager/Seat0', 'GPG_AGENT_INFO': '/home/harry/.gnupg/S.gpg-agent:0:1', 'XMODIFIERS': '@im=fcitx', 'LC_MONETARY': 'en_US.UTF-8', 'SESSION': 'ubuntu', 'UPSTART_INSTANCE': '', '_': '/home/harry/poky-rocko/scripts/recipetool', 'LC_NAME': 'en_US.UTF-8', 'QT_QPA_PLATFORMTHEME': 'appmenu-qt5', 'LANG': 'en_US.UTF-8', 'QT4_IM_MODULE': 'fcitx', 'SHLVL': '1', 'QT_LINUX_ACCESSIBILITY_ALWAYS_ON': '1', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'USER': 'harry', 'XDG_GREETER_DATA_DIR': '/var/lib/lightdm-data/harry', 'GTK2_MODULES': 'overlay-scrollbar', 'XDG_CURRENT_DESKTOP': 'Unity', 'JOB': 'unity-settings-daemon', 'LC_PAPER': 'en_US.UTF-8', 'LC_IDENTIFICATION': 'en_US.UTF-8', 'HOME': '/home/harry', 'XAUTHORITY': '/home/harry/.Xauthority', 'DISPLAY': ':0', 'WINDOWID': '65014261', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'PWD': '/home/harry/stigbot/meta-stigbot', 'GTK_IM_MODULE': 'fcitx', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'LANGUAGE': 'en', 'IM_CONFIG_PHASE': '1', 'DESKTOP_SESSION': 'ubuntu', 'BB_ENV_EXTRAWHITE': 'ALL_PROXY BBPATH_EXTRA BB_NO_NETWORK BB_NUMBER_THREADS BB_SETSCENE_ENFORCE BB_SRCREV_POLICY DISTRO FTPS_PROXY FTP_PROXY GIT_PROXY_COMMAND HTTPS_PROXY HTTP_PROXY MACHINE NO_PROXY PARALLEL_MAKE SCREENDIR SDKMACHINE SOCKS5_PASSWD SOCKS5_USER SSH_AGENT_PID SSH_AUTH_SOCK STAMPS_DIR TCLIBC TCMODE all_proxy ftp_proxy ftps_proxy http_proxy https_proxy no_proxy ', 'LC_ALL': 'en_US.UTF-8', 'XDG_SESSION_DESKTOP': 'ubuntu', 'GNOME_KEYRING_PID': '', 'UPSTART_SESSION': 'unix:abstract=/com/ubuntu/upstart-session/1000/1807', 'COMPIZ_CONFIG_PROFILE': 'ubuntu'}, ['/home/harry/poky-rocko/scripts/recipetool', 'create', 'helloHarry.c']]
+Running command ['getVariable', 'BBINCLUDELOGS']
+Running command ['getVariable', 'BBINCLUDELOGS_LINES']
+Running command ['getSetVariable', 'BB_CONSOLELOG']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.runqueue.runQueueExitWait', 'bb.event.LogExecTTY', 'logging.LogRecord', 'bb.build.TaskFailed', 'bb.build.TaskBase', 'bb.event.ParseStarted', 'bb.event.ParseProgress', 'bb.event.ParseCompleted', 'bb.event.CacheLoadStarted', 'bb.event.CacheLoadProgress', 'bb.event.CacheLoadCompleted', 'bb.command.CommandFailed', 'bb.command.CommandExit', 'bb.command.CommandCompleted', 'bb.cooker.CookerExit', 'bb.event.MultipleProviders', 'bb.event.NoProvider', 'bb.runqueue.sceneQueueTaskStarted', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.runQueueTaskFailed', 'bb.runqueue.sceneQueueTaskFailed', 'bb.event.BuildBase', 'bb.build.TaskStarted', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished']]
+Running command ['getVariable', 'BB_DEFAULT_TASK']
+Running command ['setConfig', 'cmd', 'build']
+Running command ['getVariable', 'BBTARGETS']
+Running command ['parseFiles']
+Running command ['getUIHandlerNum']
+Running command ['setEventMask', 1, 20, {}, ['bb.event.BuildStarted', 'bb.event.BuildCompleted', 'logging.LogRecord', 'bb.event.NoProvider', 'bb.command.CommandCompleted', 'bb.command.CommandFailed', 'bb.build.TaskStarted', 'bb.build.TaskFailed', 'bb.build.TaskSucceeded', 'bb.build.TaskFailedSilent', 'bb.build.TaskProgress', 'bb.runqueue.runQueueTaskStarted', 'bb.runqueue.sceneQueueTaskStarted', 'bb.event.ProcessStarted', 'bb.event.ProcessProgress', 'bb.event.ProcessFinished', 'bb.fetch2.MissingChecksumEvent']]
+Running command ['dataStoreConnectorFindVar', None, 'BBINCLUDELOGS']
+Running command ['dataStoreConnectorFindVar', None, 'BBINCLUDELOGS_LINES']
+Running command ['buildTargets', ['tmp-recipetool-ygs37d7h'], 'do_unpack']
+[1;29mNOTE[0m: [29mResolving any missing task queue dependencies[0m
+
+Build Configuration:
+BB_VERSION           = "1.36.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "universal"
+TARGET_SYS           = "arm-poky-linux-gnueabi"
+MACHINE              = "duovero"
+DISTRO               = "poky"
+DISTRO_VERSION       = "2.4.1"
+TUNE_FEATURES        = "arm armv7a vfp neon callconvention-hard cortexa9"
+TARGET_FPU           = "hard"
+meta                 
+meta-poky            = "rocko:21ba45aa77e4d43a93cd96d859707a4758e8b64b"
+meta-oe              
+meta-networking      
+meta-python          = "rocko:6e3fc5b8d904d06e3aa77e9ec9968ab37a798188"
+meta-stigbot         = "master:6a475ea08544af83207aad93a085f784f1342aca"
+
+[1;29mNOTE[0m: [29mExecuting RunQueue Tasks[0m
+[1;29mNOTE[0m: [29mTasks Summary: Attempted 2 tasks of which 0 didn't need to be rerun and all succeeded.[0m
+Running command ['findBestProvider', 'tmp-recipetool-ygs37d7h']
+Running command ['enableDataTracking']
+Running command ['parseRecipeFile', '/home/harry/stigbot/meta-stigbot/images/tmp-recipetool-ygs37d7h.bb', True, None]
+Running command ['disableDataTracking']
+Running command ['dataStoreConnectorFindVar', 1, 'OVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'TARGET_OS']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCEXTENSION']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'LIBCEXTENSION', "['', '-gnu'][(d.getVar('ABIEXTENSION') or '') != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'ABIEXTENSION']
+Running command ['dataStoreConnectorFindVar', 1, 'TRANSLATED_TARGET_ARCH']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'TRANSLATED_TARGET_ARCH', 'd.getVar(\'TARGET_ARCH\').replace("_", "-")']
+Running command ['dataStoreConnectorFindVar', 1, 'BUILD_OS']
+Running command ['dataStoreConnectorFindVar', 1, 'PN']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'PN', "bb.parse.BBHandler.vars_from_file(d.getVar('FILE', False),d)[0] or 'defaultpkgname'"]
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINEOVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'SOC_FAMILY']
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINE']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv4', 'armv4:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv5', 'armv5:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv6', 'armv6:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv7a', 'armv7a:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "['', 'omap4:']['omap4' != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'DISTROOVERRIDES']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'DISTROOVERRIDES', "d.getVar('DISTRO') or ''"]
+Running command ['dataStoreConnectorFindVar', 1, 'CLASSOVERRIDE']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCOVERRIDE']
+Running command ['dataStoreConnectorFindVar', 1, 'OVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'TARGET_OS']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCEXTENSION']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'LIBCEXTENSION', "['', '-gnu'][(d.getVar('ABIEXTENSION') or '') != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'ABIEXTENSION']
+Running command ['dataStoreConnectorFindVar', 1, 'TRANSLATED_TARGET_ARCH']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'TRANSLATED_TARGET_ARCH', 'd.getVar(\'TARGET_ARCH\').replace("_", "-")']
+Running command ['dataStoreConnectorFindVar', 1, 'BUILD_OS']
+Running command ['dataStoreConnectorFindVar', 1, 'PN']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'PN', "bb.parse.BBHandler.vars_from_file(d.getVar('FILE', False),d)[0] or 'defaultpkgname'"]
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINEOVERRIDES']
+Running command ['dataStoreConnectorFindVar', 1, 'SOC_FAMILY']
+Running command ['dataStoreConnectorFindVar', 1, 'MACHINE']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv4', 'armv4:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv5', 'armv5:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv6', 'armv6:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "bb.utils.contains('TUNE_FEATURES', 'armv7a', 'armv7a:', '' ,d)"]
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'MACHINEOVERRIDES', "['', 'omap4:']['omap4' != '']"]
+Running command ['dataStoreConnectorFindVar', 1, 'DISTROOVERRIDES']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': 1})], 'DISTROOVERRIDES', "d.getVar('DISTRO') or ''"]
+Running command ['dataStoreConnectorFindVar', 1, 'CLASSOVERRIDE']
+Running command ['dataStoreConnectorFindVar', 1, 'LIBCOVERRIDE']
+Running command ['dataStoreConnectorGetKeys', 1]
+Running command ['dataStoreConnectorFindVar', 1, 'T']
+Running command ['dataStoreConnectorFindVar', 1, 'WORKDIR']
+Running command ['dataStoreConnectorFindVar', 1, 'RECIPE_SYSROOT']
+Running command ['dataStoreConnectorFindVar', 1, 'RECIPE_SYSROOT_NATIVE']
+Running command ['dataStoreConnectorFindVar', None, 'SRCREV']
+Running command ['dataStoreConnectorFindVar', None, 'FILE']
+Running command ['dataStoreConnectorFindVar', None, '__BBMULTICONFIG']
+Running command ['dataStoreConnectorFindVar', None, 'PN']
+Running command ['dataStoreConnectorExpandPythonRef', [('_data', [('_remote_data', {'_content': None})]), ('SRCREV', {'doc': 'The revision of the source code used to build the package. This variable applies to Subversion, Git, Mercurial and Bazaar only.', '_defaultval': 'INVALID', '_content': '${AUTOREV}'})], 'PN', "bb.parse.BBHandler.vars_from_file(d.getVar('FILE', False),d)[0] or 'defaultpkgname'"]
+Running command ['dataStoreConnectorFindVar', None, 'SRCDATE_defaultpkgname']
+Running command ['dataStoreConnectorFindVar', None, 'SRCDATE']
+Running command ['dataStoreConnectorFindVar', None, 'DATE']
+Running command ['dataStoreConnectorFindVar', None, 'DL_DIR']
+Running command ['dataStoreConnectorFindVar', None, 'TOPDIR']
+Running command ['dataStoreConnectorFindVar', None, 'COMMON_LICENSE_DIR']
+Running command ['dataStoreConnectorFindVar', None, 'COREBASE']
+Running command ['dataStoreConnectorExpandPythonRef', [('_remote_data', {'_content': None})], 'COREBASE', 'os.path.normpath("/home/harry/poky-rocko/meta/../")']
+Running command ['clientComplete']
+Connecting Client
+Disconnecting Client
+No timeout, exiting.
+Exiting

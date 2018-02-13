@@ -1,0 +1,44 @@
+From e4a7891b2e43fd20b4269c204768289c66d7e721 Mon Sep 17 00:00:00 2001
+From: freedomcondor <zhuweixu_harry@126.com>
+Date: Sun, 11 Feb 2018 21:01:08 +0100
+Subject: [PATCH] new
+
+---
+ drivers/clk/clkdev.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/clk/clkdev.c b/drivers/clk/clkdev.c
+index 6b2f29d..293c8f1 100644
+--- a/drivers/clk/clkdev.c
++++ b/drivers/clk/clkdev.c
+@@ -162,6 +162,8 @@ static struct clk_lookup *clk_find(const char *dev_id, const char *con_id)
+ 			else
+ 				break;
+ 		}
++
++		pr_err("clk_find: match = %d",match);
+ 	}
+ 	return cl;
+ }
+@@ -173,6 +175,7 @@ struct clk *clk_get_sys(const char *dev_id, const char *con_id)
+ 
+ 	mutex_lock(&clocks_mutex);
+ 
++	pr_err("in clk_get_sys: before clk_find");
+ 	cl = clk_find(dev_id, con_id);
+ 	if (!cl)
+ 		goto out;
+@@ -202,7 +205,10 @@ struct clk *clk_get(struct device *dev, const char *con_id)
+ 	if (dev) {
+ 		clk = __of_clk_get_by_name(dev->of_node, dev_id, con_id);
+ 		if (!IS_ERR(clk) || PTR_ERR(clk) == -EPROBE_DEFER)
++		{
++			pr_err("in clk_get: after get by name before return clk");
+ 			return clk;
++		}
+ 	}
+ 
+ 	return clk_get_sys(dev_id, con_id);
+-- 
+2.7.4
+
