@@ -1,0 +1,69 @@
+From a56e572171aacc0d2385e4d0d0bc2807f2fe7dbf Mon Sep 17 00:00:00 2001
+From: freedomcondor <zhuweixu_harry@126.com>
+Date: Wed, 28 Feb 2018 14:41:40 +0100
+Subject: [PATCH] iss-match
+
+---
+ drivers/staging/media/omap4iss/iss.c | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/drivers/staging/media/omap4iss/iss.c b/drivers/staging/media/omap4iss/iss.c
+index c26c99fd..1a82135 100644
+--- a/drivers/staging/media/omap4iss/iss.c
++++ b/drivers/staging/media/omap4iss/iss.c
+@@ -1207,15 +1207,21 @@ static int iss_probe(struct platform_device *pdev)
+ 	unsigned int i;
+ 	int ret;
+ 
++	pr_err("I am the probe of iss\n");
++
+ 	if (!pdata)
+ 		return -EINVAL;
+ 
++	pr_err("after data\n");
++
+ 	iss = devm_kzalloc(&pdev->dev, sizeof(*iss), GFP_KERNEL);
+ 	if (!iss)
+ 		return -ENOMEM;
+ 
+ 	mutex_init(&iss->iss_mutex);
+ 
++	dev_err(&pdev->dev, "before iss->dev here\n");
++
+ 	iss->dev = &pdev->dev;
+ 	iss->pdata = pdata;
+ 
+@@ -1223,6 +1229,8 @@ static int iss_probe(struct platform_device *pdev)
+ 	iss->dev->dma_mask = &iss->raw_dmamask;
+ 	iss->dev->coherent_dma_mask = DMA_BIT_MASK(32);
+ 
++	dev_err(iss->dev, "iss-dev here\n");
++
+ 	platform_set_drvdata(pdev, iss);
+ 
+ 	/*
+@@ -1344,12 +1352,21 @@ static const struct platform_device_id omap4iss_id_table[] = {
+ };
+ MODULE_DEVICE_TABLE(platform, omap4iss_id_table);
+ 
++/* add of match table  */
++static const struct of_device_id omap4iss_of_table[] = {
++	{ .compatible = "ti,omap4iss" },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, omap4iss_of_table);
++/* end adding of match table  */
++
+ static struct platform_driver iss_driver = {
+ 	.probe		= iss_probe,
+ 	.remove		= iss_remove,
+ 	.id_table	= omap4iss_id_table,
+ 	.driver = {
+ 		.name	= "omap4iss",
++		.of_match_table = of_match_ptr(omap4iss_of_table),
+ 	},
+ };
+ 
+-- 
+2.7.4
+

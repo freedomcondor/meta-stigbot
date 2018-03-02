@@ -1,0 +1,17 @@
+DESCRIPTION = "argos"
+
+LICENSE = "CLOSED"
+BB_STRICT_CHECKSUM = "0"
+inherit cmake
+
+SRC_URI = "git://github.com/ilpincy/argos3;protocol=http"
+SRCREV = "${AUTOREV}"
+S = "${WORKDIR}/git/src"
+EXTRA_OECMAKE = "-DARGOS_BUILD_FOR=myrobot"
+
+#do_install() {
+ #   install -d ${D}${bindir}
+  #  install -m 0755 cVector ${D}${bindir}
+#}
+
+

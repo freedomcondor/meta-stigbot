@@ -40,6 +40,58 @@
 		#clock-cells = <0>;
 		enable-gpios = <&gpio3 18 GPIO_ACTIVE_HIGH>; /* cam_strobe.gpio_82: uart78_clk_en */
 	};
+
+	ocp{
+		iss: iss@52000000 {
+			compatible = "ti,omap4iss";
+			reg = <0x52000000 0x1000000>;
+			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
+			ti,hwmods = "iss";
+		};
+/*
+		iss: iss@52000000 {
+			compatible = "ti,omap4iss";
+			reg = <0x52000000 0x100>, /* top *
+			      <0x52001000 0x170>, /* csi2_a_regs1 *
+			      <0x52001170 0x020>, /* camerarx_core1 *
+			      <0x52001400 0x170>, /* csi2_b_regs1 *
+			      <0x52001570 0x020>, /* camerarx_core2 *
+			      <0x52002000 0x200>, /* bte *
+			      <0x52010000 0x0a0>, /* isp_sys1 *
+			      <0x52010400 0x400>, /* isp_resizer *
+			      <0x52010800 0x800>, /* isp_ipipe *
+			      <0x52011000 0x200>, /* isp_isif *
+			      <0x52011200 0x080>; /* isp_ipipeif *
+			reg-names = "top",
+			            "csi2_a_regs1",
+			            "camerarx_core1",
+			            "csi2_b_regs1",
+			            "camerarx_core2",
+			            "bte",
+			            "isp_sys1",
+			            "isp_resizer",
+			            "isp_ipipe",
+			            "isp_isif",
+			            "isp_ipipeif";
+			status = "ok";
+			ti,hwmods = "iss";
+			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
+			//clocks = <&ducati_clk_mux_ck>, <&iss_ctrlclk>;
+			//clock-names = "fck", "iss_ctrlclk";
+			dmas = <&sdma 9>, <&sdma 10>, <&sdma 12>, <&sdma 13>;
+			dma-names = "1", "2", "3", "4";
+
+		        csi21: csi2 {
+				endpoint {
+					channel = "0";
+					clock-lanes = <0>;
+					data-lanes = <1>;
+					//remote-endpoint = <&ov5640_1>;
+				};
+			};
+		};
+*/
+	};
 };
 
 &omap4_pmx_core {
@@ -77,6 +129,18 @@
 			OMAP4_IOPAD(0x0be, PIN_OUTPUT | MUX_MODE3)		/* cam_strobe.gpio_82: uart78_clk_en */
 		>;
 	};
+/*
+	iss_csi21_pins: pinmux_iss_csi21_pins {
+		pinctrl-single,pins = <
+			OMAP4_IOPAD(0x0a0, PIN_INPUT | MUX_MODE0)		/* csi21_dx0.csi21_dx0 *
+			OMAP4_IOPAD(0x0a2, PIN_INPUT | MUX_MODE0)		/* csi21_dy0.csi21_dy0 *
+			OMAP4_IOPAD(0x0a4, PIN_INPUT | MUX_MODE0)		/* csi21_dx1.csi21_dx1 *
+			OMAP4_IOPAD(0x0a6, PIN_INPUT | MUX_MODE0)		/* csi21_dy1.csi21_dy1 *
+			OMAP4_IOPAD(0x0a8, PIN_INPUT | MUX_MODE0)		/* csi21_dx2.csi21_dx2 *
+			OMAP4_IOPAD(0x0aa, PIN_INPUT | MUX_MODE0)		/* csi21_dy2.csi21_dy2 *
+		>;
+	};
+*/
 };
 
 &i2c2 {
@@ -126,6 +190,160 @@
 		interrupt-parent = <&gpio2>;
 		interrupts = <16 IRQ_TYPE_EDGE_FALLING>; /* gpmc_a24.gpio_48 */
 	};
+
+	rf_pca_0: pca9545@70 {
+		compatible = "nxp,pca9545";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		reg = <0x70>;
+		i2c-mux-idle-disconnect;
+
+		i2c@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <1>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@2 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <2>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@3 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <3>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+	};
+	rf_pca_1: pca9545@71 {
+		compatible = "nxp,pca9545";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		reg = <0x71>;
+		i2c-mux-idle-disconnect;
+
+		i2c@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <1>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@2 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <2>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@3 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <3>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+	};
+	rf_pca_2: pca9545@72 {
+		compatible = "nxp,pca9545";
+		#address-cells = <1>;
+		#size-cells = <0>;
+		reg = <0x72>;
+		i2c-mux-idle-disconnect;
+
+		i2c@0 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <0>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@1 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <1>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@2 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <2>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+
+		i2c@3 {
+			#address-cells = <1>;
+			#size-cells = <0>;
+			reg = <3>;
+			
+			vcnl4010@13 {
+				compatible = "vishay,vcnl4010";
+				reg = <0x13>;
+			};
+		};
+	};
 };
 
 &i2c3 {
@@ -150,3 +368,12 @@
 	interrupts-extended = <&wakeupgen GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH
 			       &omap4_pmx_core OMAP4_UART3_RX>;
 };
+
+/*
+&iss {
+	status = "ok";
+
+	pinctrl-names = "default";
+	pinctrl-0 = <&iss_csi21_pins>;
+};
+*/

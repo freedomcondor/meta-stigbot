@@ -83,6 +83,8 @@ EXTRA_TOOLS_INSTALL = " \
     util-linux-blkid \
     wget \
     zip \
+    v4l-utils \
+    yavta \
 "
 
 IMAGE_INSTALL += " \
