@@ -10,7 +10,7 @@ SRC_URI = "git://github.com/freedomcondor/CVector;protocol=http"
 SRCREV = "${AUTOREV}"
 #SRC_URI[md5sum] = "c917b30ed1e36debf6b982c96982899d"
 S = "${WORKDIR}/git"
-EXTRA_OECMAKE = "-DCMAKEFLAG=\"AAA\""
+#EXTRA_OECMAKE = "-DCMAKEFLAG=AAA"
 
 do_install() {
     install -d ${D}${bindir}

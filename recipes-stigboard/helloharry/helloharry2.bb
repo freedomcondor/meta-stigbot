@@ -14,3 +14,4 @@ do_install() {
 	install -d ${D}${bindir}
 	install -m 0755 helloHarry2 ${D}${bindir}
 }
+TARGET_CC_ARCH += "${LDFLAGS}" 
