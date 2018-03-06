@@ -40,3 +40,8 @@ The tutorial in that link is not using a standard folder structure. To make it s
 
 6. bitbake console-image-stig
 
+7. copy image:
+	goto meta-stig/scripts
+	export OETMP=/xxx/build/tmp
+	./copy-boot sdb
+	./copy-roots sdb
