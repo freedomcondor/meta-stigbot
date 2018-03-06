@@ -25,23 +25,30 @@ Instructions for using this layer can be found at [jumpnowtek.com][duovero-yocto
 
 The tutorial in that link is not using a standard folder structure. To make it simple, you can:
 1. clone poky-rocko
-~# git clone -b rocko git://git.yoctoproject.org/poky.git poky-rocko
+
+	~# git clone -b rocko git://git.yoctoproject.org/poky.git poky-rocko
 
 2. in folder poky-rocko, clone layer openembedded
-~/poky-rocko$ git clone -b rocko git://git.openembedded.org/meta-openembedded
+	
+	~/poky-rocko$ git clone -b rocko git://git.openembedded.org/meta-openembedded
 
 3. clone/copy/move this layer under poky-rocko
-~/poky-rocko$ git clone https://github.com/freedomcondor/meta-stigbot
+
+	~/poky-rocko$ git clone https://github.com/freedomcondor/meta-stigbot
 
 4. prepare build by setup poky-rocko/build/conf:
-~/poky-rocko$ source poky-rocko/oe-init-build-env
+	
+	~/poky-rocko$ source poky-rocko/oe-init-build-env
 
 5. copy sample files (bblayers.conf and local.conf) from meta-stigbot/conf to poky-rocko/build/conf
 
 6. bitbake console-image-stig
 
 7. copy image:
+
 	goto meta-stig/scripts
 	export OETMP=/xxx/build/tmp
-	./copy-boot sdb
-	./copy-roots sdb
+	sudo umount /dev/sdb1
+	sudo umount /dev/sdb2
+	./copy-boot.sh sdb
+	./copy-roots.sh sdb
