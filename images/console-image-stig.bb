@@ -6,6 +6,15 @@ IMAGE_LINGUAS = "en-us"
 
 inherit core-image
 
+IMAGE_INSTALL += " netinterface \
+    lua \
+    argos \
+    helloargos \
+    pmstatus \
+    speedcontrol \
+    tcpcontrol \
+"
+
 CORE_OS = " \
     busybox-hwclock \
     openssh openssh-keygen openssh-sftp-server \

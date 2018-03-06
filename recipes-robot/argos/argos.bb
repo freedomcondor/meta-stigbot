@@ -1,10 +1,10 @@
-DESCRIPTION = "argos"
+DESCRIPTION = "argos installation"
 
 LICENSE = "CLOSED"
 BB_STRICT_CHECKSUM = "0"
 
 DEPENDS += "lua"
-DEPENDS += "asciidoc"
+#DEPENDS += "asciidoc"
 
 inherit cmake
 
