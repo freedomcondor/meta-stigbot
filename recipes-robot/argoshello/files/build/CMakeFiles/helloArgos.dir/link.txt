@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/helloArgos.dir/helloargos.cpp.o  -o helloArgos 

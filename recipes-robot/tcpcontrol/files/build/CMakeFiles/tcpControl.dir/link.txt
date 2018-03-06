@@ -1,0 +1,1 @@
+/usr/bin/c++      CMakeFiles/tcpControl.dir/src/main.cpp.o CMakeFiles/tcpControl.dir/src/function_opengl.cpp.o CMakeFiles/tcpControl.dir/src/packet_control_interface.cc.o CMakeFiles/tcpControl.dir/src/uart_socket.cc.o CMakeFiles/tcpControl.dir/src/tcp_socket.cpp.o  -o tcpControl -rdynamic 
