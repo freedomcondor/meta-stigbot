@@ -13,14 +13,12 @@ file://0001-Cflags.patch \
 file://addincludetoLD.sh \
 "
 
-#file://0001-positionofcore.patch 
-
 SRCREV = "${AUTOREV}"
 S = "${WORKDIR}/git/src"
 
 EXTRA_OECMAKE = "-DARGOS_BUILD_FOR=stigbot -DARGOS_DOCUMENTATION=OFF"
 
-FILES_${PN} += "${libdir}/*"	
+FILES_${PN} += "${libdir}/*"		
 #/usr/lib
 FILES_${PN} += "${prefix}/doc/*"  	
 #/usr/doc
@@ -28,6 +26,11 @@ FILES_${PN} += "${datadir}/*"
 #/usr/shared
 TARGET_CC_ARCH += "${LDFLAGS}" 
 
+do_install_append() {
+     # The extra files need to go in the respective directories
+     install -d ${D}${sysconfdir}/init.d
+     install -m 0755 ${WORKDIR}/addincludetoLD.sh ${D}${sysconfdir}/init.d
+}
 
 
 
