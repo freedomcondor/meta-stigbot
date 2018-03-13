@@ -10,7 +10,6 @@ inherit cmake
 
 SRC_URI = "git://github.com/ilpincy/argos3;protocol=http \
 file://0001-Cflags.patch \
-file://addincludetoLD.sh \
 "
 
 #file://0001-positionofcore.patch 
