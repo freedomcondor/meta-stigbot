@@ -1,48 +1,17 @@
-From a56e572171aacc0d2385e4d0d0bc2807f2fe7dbf Mon Sep 17 00:00:00 2001
-From: freedomcondor <zhuweixu_harry@126.com>
-Date: Wed, 28 Feb 2018 14:41:40 +0100
-Subject: [PATCH] iss-match
+From a710bb9719f54b2118c523510ef96a6f853e8cab Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Fri, 16 Mar 2018 11:54:58 +0100
+Subject: [PATCH] iss
 
 ---
- drivers/staging/media/omap4iss/iss.c | 17 +++++++++++++++++
- 1 file changed, 17 insertions(+)
+ drivers/staging/media/omap4iss/iss.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/staging/media/omap4iss/iss.c b/drivers/staging/media/omap4iss/iss.c
-index c26c99fd..1a82135 100644
+index c26c99fd4a24..a48273c884c0 100644
 --- a/drivers/staging/media/omap4iss/iss.c
 +++ b/drivers/staging/media/omap4iss/iss.c
-@@ -1207,15 +1207,21 @@ static int iss_probe(struct platform_device *pdev)
- 	unsigned int i;
- 	int ret;
- 
-+	pr_err("I am the probe of iss\n");
-+
- 	if (!pdata)
- 		return -EINVAL;
- 
-+	pr_err("after data\n");
-+
- 	iss = devm_kzalloc(&pdev->dev, sizeof(*iss), GFP_KERNEL);
- 	if (!iss)
- 		return -ENOMEM;
- 
- 	mutex_init(&iss->iss_mutex);
- 
-+	dev_err(&pdev->dev, "before iss->dev here\n");
-+
- 	iss->dev = &pdev->dev;
- 	iss->pdata = pdata;
- 
-@@ -1223,6 +1229,8 @@ static int iss_probe(struct platform_device *pdev)
- 	iss->dev->dma_mask = &iss->raw_dmamask;
- 	iss->dev->coherent_dma_mask = DMA_BIT_MASK(32);
- 
-+	dev_err(iss->dev, "iss-dev here\n");
-+
- 	platform_set_drvdata(pdev, iss);
- 
- 	/*
-@@ -1344,12 +1352,21 @@ static const struct platform_device_id omap4iss_id_table[] = {
+@@ -1344,12 +1344,21 @@ static const struct platform_device_id omap4iss_id_table[] = {
  };
  MODULE_DEVICE_TABLE(platform, omap4iss_id_table);
  
@@ -65,5 +34,5 @@ index c26c99fd..1a82135 100644
  };
  
 -- 
-2.7.4
+2.14.1
 
