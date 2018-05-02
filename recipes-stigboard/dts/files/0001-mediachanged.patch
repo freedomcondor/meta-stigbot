@@ -1,0 +1,134 @@
+From 0796d291db99b57ff34aac54f1c1665e07dd73cb Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Thu, 26 Apr 2018 12:13:02 +0200
+Subject: [PATCH] mediachanged
+
+---
+ drivers/media/media-device.c | 22 ++++++++++++++++++++++
+ drivers/media/media-entity.c | 14 ++++++++++++++
+ 2 files changed, 36 insertions(+)
+
+diff --git a/drivers/media/media-device.c b/drivers/media/media-device.c
+index e79f72b8b858..01c2ed978adb 100644
+--- a/drivers/media/media-device.c
++++ b/drivers/media/media-device.c
+@@ -554,12 +554,16 @@ int __must_check media_device_register_entity(struct media_device *mdev,
+ 	unsigned int i;
+ 	int ret;
+ 
++								pr_err("media_register,start");
++
+ 	if (entity->function == MEDIA_ENT_F_V4L2_SUBDEV_UNKNOWN ||
+ 	    entity->function == MEDIA_ENT_F_UNKNOWN)
+ 		dev_warn(mdev->dev,
+ 			 "Entity type for entity %s was not initialized!\n",
+ 			 entity->name);
+ 
++								pr_err("media_register,after warn message");
++
+ 	/* Warn if we apparently re-register an entity */
+ 	WARN_ON(entity->graph_obj.mdev != NULL);
+ 	entity->graph_obj.mdev = mdev;
+@@ -567,11 +571,17 @@ int __must_check media_device_register_entity(struct media_device *mdev,
+ 	entity->num_links = 0;
+ 	entity->num_backlinks = 0;
+ 
++								pr_err("media_register,after links");
++
+ 	if (!ida_pre_get(&mdev->entity_internal_idx, GFP_KERNEL))
+ 		return -ENOMEM;
+ 
++								pr_err("media_register,after links");
++
+ 	mutex_lock(&mdev->graph_mutex);
+ 
++								pr_err("media_register,before ida");
++
+ 	ret = ida_get_new_above(&mdev->entity_internal_idx, 1,
+ 				&entity->internal_idx);
+ 	if (ret < 0) {
+@@ -579,21 +589,31 @@ int __must_check media_device_register_entity(struct media_device *mdev,
+ 		return ret;
+ 	}
+ 
++								pr_err("media_register,before idx_max");
++
+ 	mdev->entity_internal_idx_max =
+ 		max(mdev->entity_internal_idx_max, entity->internal_idx);
+ 
++								pr_err("media_register,before initialize media_gobj");
++
+ 	/* Initialize media_gobj embedded at the entity */
+ 	media_gobj_create(mdev, MEDIA_GRAPH_ENTITY, &entity->graph_obj);
+ 
++								pr_err("media_register,before initialize objects at pads");
++
+ 	/* Initialize objects at the pads */
+ 	for (i = 0; i < entity->num_pads; i++)
+ 		media_gobj_create(mdev, MEDIA_GRAPH_PAD,
+ 			       &entity->pads[i].graph_obj);
+ 
++								pr_err("media_register,after initialize objects at pads");
++
+ 	/* invoke entity_notify callbacks */
+ 	list_for_each_entry_safe(notify, next, &mdev->entity_notify, list)
+ 		notify->notify(entity, notify->notify_data);
+ 
++								pr_err("media_register,after initialize notify");
++
+ 	if (mdev->entity_internal_idx_max
+ 	    >= mdev->pm_count_walk.ent_enum.idx_max) {
+ 		struct media_graph new = { .top = 0 };
+@@ -613,6 +633,8 @@ int __must_check media_device_register_entity(struct media_device *mdev,
+ 	}
+ 	mutex_unlock(&mdev->graph_mutex);
+ 
++								pr_err("media_register,before return");
++
+ 	return 0;
+ }
+ EXPORT_SYMBOL_GPL(media_device_register_entity);
+diff --git a/drivers/media/media-entity.c b/drivers/media/media-entity.c
+index 2ace0410d277..c7a34030dcfa 100644
+--- a/drivers/media/media-entity.c
++++ b/drivers/media/media-entity.c
+@@ -175,12 +175,21 @@ void media_gobj_create(struct media_device *mdev,
+ 
+ 	gobj->mdev = mdev;
+ 
++						pr_err("media_gobj_create : start");
++
+ 	/* Create a per-type unique object ID */
+ 	gobj->id = media_gobj_gen_id(type, ++mdev->id);
+ 
++						pr_err("media_gobj_create : after id");
++
+ 	switch (type) {
+ 	case MEDIA_GRAPH_ENTITY:
++						pr_err("media_gobj_create : before list add");
++						pr_err("list addr = %p, content = ",&gobj->list);
++						pr_err("list-next addr = %p, content = ",gobj->list.next);
++						pr_err("list-prev addr = %p, content = ",gobj->list.prev);
+ 		list_add_tail(&gobj->list, &mdev->entities);
++						pr_err("media_gobj_create : after list add");
+ 		break;
+ 	case MEDIA_GRAPH_PAD:
+ 		list_add_tail(&gobj->list, &mdev->pads);
+@@ -193,9 +202,14 @@ void media_gobj_create(struct media_device *mdev,
+ 		break;
+ 	}
+ 
++						pr_err("media_gobj_create : after add list");
++
+ 	mdev->topology_version++;
+ 
++						pr_err("media_gobj_create : before debug");
+ 	dev_dbg_obj(__func__, gobj);
++
++						pr_err("media_gobj_create : after debug");
+ }
+ 
+ void media_gobj_destroy(struct media_gobj *gobj)
+-- 
+2.14.1
+

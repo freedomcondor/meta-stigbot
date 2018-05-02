@@ -1,0 +1,328 @@
+From d4a2ffaa2fbd5fe4facc331394b756e4885f17af Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Wed, 11 Apr 2018 15:06:06 +0200
+Subject: [PATCH] omapchanged
+
+---
+ arch/arm/boot/dts/omap4.dtsi         |  39 ++++++++++++
+ drivers/staging/media/omap4iss/iss.c | 111 ++++++++++++++++++++++++++++++++---
+ 2 files changed, 143 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm/boot/dts/omap4.dtsi b/arch/arm/boot/dts/omap4.dtsi
+index 1bcf66ec209f..ce68faad7faf 100644
+--- a/arch/arm/boot/dts/omap4.dtsi
++++ b/arch/arm/boot/dts/omap4.dtsi
+@@ -573,6 +573,45 @@
+ 			#iommu-cells = <0>;
+ 		};
+ 
++		target-module@52000000 {
++		//omap4iss : omap4iss@52000000 {
++			compatible = "simple-bus";
++			ti,hwmods = "iss";
++
++			/* reg here will just contain rev, sysc and syss eventually */
++			reg = <0x52000000 0x1000000>;
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0x52000000 0x1000000>;
++
++			iss: iss@0 {
++				compatible = "ti,omap4iss";
++				reg =  	<0x0000 0x200>,		/* top */
++						<0x1000 0x170>, /* csi2_a_regs1 */
++						<0x1170 0x020>, /* camerarx_core1 */
++						<0x1400 0x170>, /* csi2_b_regs1 */
++						<0x1570 0x020>, /* camerarx_core2 */
++						<0x2000 0x200>, /* bte */
++						<0x10000 0x0a0>, /* isp_sys1 */
++						<0x10400 0x400>, /* isp_resizer */
++						<0x10800 0x800>, /* isp_ipipe */
++						<0x11000 0x200>, /* isp_isif */
++						<0x11200 0x080>; /* isp_ipipeif */
++
++				harry = <0x123 0x321 0x456>;			// harryflag
++				//syscon = <&scm_conf 0x6c>;	// copy from isp
++				syscon = <&scm_conf>; 
++				//status = "ok";
++				//ti,hwmods = "iss";
++				interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&ducati_clk_mux_ck>, <&iss_ctrlclk>;
++				clock-names = "iss_fck", "iss_ctrlclk";
++				dmas = <&sdma 9>, <&sdma 10>, <&sdma 12>, <&sdma 13>;
++				dma-names = "1", "2", "3", "4";	// only 4 originally, 5 is a flag
++			};
++		};
++
+ 		mmu_ipu: mmu@55082000 {
+ 			compatible = "ti,omap4-iommu";
+ 			reg = <0x55082000 0x100>;
+diff --git a/drivers/staging/media/omap4iss/iss.c b/drivers/staging/media/omap4iss/iss.c
+index c26c99fd4a24..017e8ad3d4c3 100644
+--- a/drivers/staging/media/omap4iss/iss.c
++++ b/drivers/staging/media/omap4iss/iss.c
+@@ -732,6 +732,8 @@ int omap4iss_subclk_enable(struct iss_device *iss,
+ {
+ 	iss->subclk_resources |= res;
+ 
++	pr_err("in subclk");
++
+ 	return __iss_subclk_update(iss);
+ }
+ 
+@@ -802,13 +804,15 @@ static int iss_enable_clocks(struct iss_device *iss)
+ {
+ 	int ret;
+ 
+-	ret = clk_enable(iss->iss_fck);
++	//ret = clk_enable(iss->iss_fck);
++	ret = clk_prepare_enable(iss->iss_fck);
+ 	if (ret) {
+ 		dev_err(iss->dev, "clk_enable iss_fck failed\n");
+ 		return ret;
+ 	}
+ 
+-	ret = clk_enable(iss->iss_ctrlclk);
++	//ret = clk_enable(iss->iss_ctrlclk);
++	ret = clk_prepare_enable(iss->iss_ctrlclk);
+ 	if (ret) {
+ 		dev_err(iss->dev, "clk_enable iss_ctrlclk failed\n");
+ 		clk_disable(iss->iss_fck);
+@@ -824,15 +828,19 @@ static int iss_enable_clocks(struct iss_device *iss)
+  */
+ static void iss_disable_clocks(struct iss_device *iss)
+ {
+-	clk_disable(iss->iss_ctrlclk);
+-	clk_disable(iss->iss_fck);
++	//clk_disable(iss->iss_ctrlclk);
++	//clk_disable(iss->iss_fck);
++	clk_disable_unprepare(iss->iss_ctrlclk);
++	clk_disable_unprepare(iss->iss_fck);
+ }
+ 
+ static int iss_get_clocks(struct iss_device *iss)
+ {
+ 	iss->iss_fck = devm_clk_get(iss->dev, "iss_fck");
++	//iss->iss_fck = devm_clk_get(iss->dev, "ducati_clk_mux_ck");
+ 	if (IS_ERR(iss->iss_fck)) {
+ 		dev_err(iss->dev, "Unable to get iss_fck clock info\n");
++		//dev_err(iss->dev, "Unable to get ducati_clk_mux_ck clock info\n");
+ 		return PTR_ERR(iss->iss_fck);
+ 	}
+ 
+@@ -859,6 +867,7 @@ struct iss_device *omap4iss_get(struct iss_device *iss)
+ {
+ 	struct iss_device *__iss = iss;
+ 
++						pr_err("in omap4get, start");
+ 	if (!iss)
+ 		return NULL;
+ 
+@@ -866,18 +875,26 @@ struct iss_device *omap4iss_get(struct iss_device *iss)
+ 	if (iss->ref_count > 0)
+ 		goto out;
+ 
++						pr_err("in omap4get, after mutexlock, start");
++
+ 	if (iss_enable_clocks(iss) < 0) {
+ 		__iss = NULL;
+ 		goto out;
+ 	}
+ 
++						pr_err("in omap4get, after enable clocks, start");
++
+ 	iss_enable_interrupts(iss);
+ 
++						pr_err("in omap4get, after enable irq, start");
++
+ out:
+ 	if (__iss)
+ 		iss->ref_count++;
+ 	mutex_unlock(&iss->iss_mutex);
+ 
++						pr_err("in omap4get, after unlock mutex, start");
++
+ 	return __iss;
+ }
+ 
+@@ -915,7 +932,6 @@ static int iss_map_mem_resource(struct platform_device *pdev,
+ 	struct resource *mem;
+ 
+ 	mem = platform_get_resource(pdev, IORESOURCE_MEM, res);
+-
+ 	iss->regs[res] = devm_ioremap_resource(iss->dev, mem);
+ 
+ 	return PTR_ERR_OR_ZERO(iss->regs[res]);
+@@ -1206,51 +1222,114 @@ static int iss_probe(struct platform_device *pdev)
+ 	struct iss_device *iss;
+ 	unsigned int i;
+ 	int ret;
++	int harry;
++
++						pr_err("iss_probe, start");
+ 
++	/*
+ 	if (!pdata)
+ 		return -EINVAL;
++	*/
++
++						pr_err("iss_probe, after pdata");
+ 
+ 	iss = devm_kzalloc(&pdev->dev, sizeof(*iss), GFP_KERNEL);
+ 	if (!iss)
+ 		return -ENOMEM;
+ 
++						pr_err("iss_probe, after kzalloc");
++
++	//--------------------------------------------------------------------------
++	///*  of_property_read_u32_index  a harry test
++	pr_err("iss_probe, ori harry = %x",harry);
++	ret = of_property_read_u32_index(pdev->dev.of_node,"harry", 0, &harry);
++	pr_err("iss_probe, 1 harry = %x",harry);
++	ret = of_property_read_u32_index(pdev->dev.of_node,"harry", 1, &harry);
++	pr_err("iss_probe, 1 harry = %x",harry);
++	ret = of_property_read_u32_index(pdev->dev.of_node,"harry", 2, &harry);
++	pr_err("iss_probe, 1 harry = %x",harry);
++	if (ret)
++		return ret;
++	//*/
++	//--------------------------------------------------------------------------
++
+ 	mutex_init(&iss->iss_mutex);
+ 
++						pr_err("iss_probe, after mutex");
++
+ 	iss->dev = &pdev->dev;
+-	iss->pdata = pdata;
++	//iss->pdata = pdata;
+ 
+ 	iss->raw_dmamask = DMA_BIT_MASK(32);
+ 	iss->dev->dma_mask = &iss->raw_dmamask;
+ 	iss->dev->coherent_dma_mask = DMA_BIT_MASK(32);
+ 
+ 	platform_set_drvdata(pdev, iss);
++		// this means pdev->dev->driver_data = iss
+ 
+ 	/*
+ 	 * TODO: When implementing DT support switch to syscon regmap lookup by
+ 	 * phandle.
+ 	 */
+-	iss->syscon = syscon_regmap_lookup_by_compatible("syscon");
++	
++						pr_err("iss_probe, before syscon");
++
++	//--------------------------------------------------------------------------
++	/*
++	 * from omap3 isp
++	  isp->syscon = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,
++	  2250                               "syscon");
++	  2251     if (IS_ERR(isp->syscon))
++	  2252         return PTR_ERR(isp->syscon);
++
++	 */ 
++
++	//--------------------------------------------------------------------------
++	//		unknown purpose
++	//		it is used in csiphy.c just grep to find it
++	iss->syscon = syscon_regmap_lookup_by_phandle(pdev->dev.of_node,"syscon");
+ 	if (IS_ERR(iss->syscon)) {
+ 		ret = PTR_ERR(iss->syscon);
+ 		goto error;
+ 	}
++	//--------------------------------------------------------------------------
++
++	//--------------------------------------------------------------------------
++	pr_err("iss_probe, after syscon");
++	pr_err("iss_probe, pdev->num_resources = %d",pdev->num_resources);
++	for (i = 0; i < pdev->num_resources; i++ )
++	{
++		pr_err("pdev resource start=%x",pdev->resource[i].start);
++		pr_err("pdev resource end=%x",pdev->resource[i].end);
++		pr_err("pdev resource name=%s",pdev->resource[i].name);
++	}
++	//--------------------------------------------------------------------------
+ 
+ 	/* Clocks */
+ 	ret = iss_map_mem_resource(pdev, iss, OMAP4_ISS_MEM_TOP);
++						pr_err("iss_probe, ret =  iss_map_mem_resource = %d",ret);
+ 	if (ret < 0)
+ 		goto error;
+ 
++						pr_err("iss_probe, after iss_map_mem_resource");
++
+ 	ret = iss_get_clocks(iss);
+ 	if (ret < 0)
+ 		goto error;
+ 
++						pr_err("iss_get_clocks");
++
+ 	if (!omap4iss_get(iss))
+ 		goto error;
+ 
++						pr_err("omap4iss_get");
++
+ 	ret = iss_reset(iss);
+ 	if (ret < 0)
+ 		goto error_iss;
+ 
++						pr_err("iss_reset");
++
+ 	iss->revision = iss_reg_read(iss, OMAP4_ISS_MEM_TOP, ISS_HL_REVISION);
+ 	dev_info(iss->dev, "Revision %08x found\n", iss->revision);
+ 
+@@ -1260,20 +1339,29 @@ static int iss_probe(struct platform_device *pdev)
+ 			goto error_iss;
+ 	}
+ 
++	pr_err("iss after for iss_map_mem_resource");
++
+ 	/* Configure BTE BW_LIMITER field to max recommended value (1 GB) */
+ 	iss_reg_update(iss, OMAP4_ISS_MEM_BTE, BTE_CTRL,
+ 		       BTE_CTRL_BW_LIMITER_MASK,
+ 		       18 << BTE_CTRL_BW_LIMITER_SHIFT);
+ 
++	pr_err("iss after regupdate");
++
+ 	/* Perform ISP reset */
+ 	ret = omap4iss_subclk_enable(iss, OMAP4_ISS_SUBCLK_ISP);
++	pr_err("subclk ret: %d",ret);
+ 	if (ret < 0)
+ 		goto error_iss;
+ 
++	pr_err("iss after subclk enable");
++
+ 	ret = iss_isp_reset(iss);
+ 	if (ret < 0)
+ 		goto error_iss;
+ 
++	pr_err("iss after for isp_reset");
++
+ 	dev_info(iss->dev, "ISP Revision %08x found\n",
+ 		 iss_reg_read(iss, OMAP4_ISS_MEM_ISP_SYS1, ISP5_REVISION));
+ 
+@@ -1344,12 +1432,21 @@ static const struct platform_device_id omap4iss_id_table[] = {
+ };
+ MODULE_DEVICE_TABLE(platform, omap4iss_id_table);
+ 
++/* add of match table  */
++static const struct of_device_id omap4iss_of_table[] = {
++	{ .compatible = "ti,omap4iss" },
++	{ },
++};
++MODULE_DEVICE_TABLE(of, omap4iss_of_table);
++/* end adding of match table  */
++
+ static struct platform_driver iss_driver = {
+ 	.probe		= iss_probe,
+ 	.remove		= iss_remove,
+ 	.id_table	= omap4iss_id_table,
+ 	.driver = {
+ 		.name	= "omap4iss",
++		.of_match_table = of_match_ptr(omap4iss_of_table),
+ 	},
+ };
+ 
+-- 
+2.14.1
+

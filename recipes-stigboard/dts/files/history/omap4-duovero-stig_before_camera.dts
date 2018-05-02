@@ -41,61 +41,55 @@
 		enable-gpios = <&gpio3 18 GPIO_ACTIVE_HIGH>; /* cam_strobe.gpio_82: uart78_clk_en */
 	};
 
-	ov5640_1_osc: oscillator {
-		compatible = "fixed-clock";
-		#clock-cells = <0>;
-		clock-frequency = <24000000>;
-		//clock-output-names = "ov5640_1_osc";
-	};
-
-	ov5640_1_clk: clock2 {
-		compatible = "gpio-gate-clock";
-		#clock-cells = <0>;
-		clocks = <&ov5640_1_osc>;
-		enable-gpios = <&ov5640_1_gpio 2 GPIO_ACTIVE_HIGH>; // ov5640_1_osc enable 
-	};
-
-	regulator1800: regulator1800 {
-		compatible = "regulator-fixed";
-		regulator-name = "DOVDD";
-		regulator-min-microvolt = <1800000>;
-		regulator-max-microvolt = <1800000>;
-		gpio = <&ov5640_1_gpio 0 GPIO_ACTIVE_HIGH>;
-		enable-active-high;
-		regulator-boot-on;
-		gpio-open-drain;
-	};
-
-	regulator2800: regulator2800 {
-		compatible = "regulator-fixed";
-		regulator-name = "AVDD";
-		regulator-min-microvolt = <2800000>;
-		regulator-max-microvolt = <2800000>;
-		gpio = <&ov5640_1_gpio 1 GPIO_ACTIVE_HIGH>;
-		enable-active-high;
-		regulator-boot-on;
-		gpio-open-drain;
-	};
-
-	regulator1500: regulator1500 {
-		compatible = "regulator-fixed";
-		regulator-name = "DVDD";
-		regulator-min-microvolt = <1500000>;
-		regulator-max-microvolt = <1500000>;
-	};
- 
 /*
-	ov5640_2_osc: oscillator {
-		compatible = "fixed-clock";
-		#clock-cells = <1>;
-		clock-frequency = <24000000>;
-		clock-output-names = "ov5640_2_osc";
-	};
-	ov5640_2_clk: clock {
-		compatible = "gpio-gate-clock";
-		clocks = <&ov5640_2_osc>;
-		#clock-cells = <0>;
-		enable-gpios = <&ov5640_2_gpio 2 GPIO_ACTIVE_HIGH>; // ov5640_2_osc enable 
+	ocp{
+		iss: iss@52000000 {
+			compatible = "ti,omap4iss";
+			reg = <0x52000000 0x1000000>;
+			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
+			ti,hwmods = "iss";
+		};
+		iss: iss@52000000 {
+			compatible = "ti,omap4iss";
+			reg = <0x52000000 0x100>, /* top *
+			      <0x52001000 0x170>, /* csi2_a_regs1 *
+			      <0x52001170 0x020>, /* camerarx_core1 *
+			      <0x52001400 0x170>, /* csi2_b_regs1 *
+			      <0x52001570 0x020>, /* camerarx_core2 *
+			      <0x52002000 0x200>, /* bte *
+			      <0x52010000 0x0a0>, /* isp_sys1 *
+			      <0x52010400 0x400>, /* isp_resizer *
+			      <0x52010800 0x800>, /* isp_ipipe *
+			      <0x52011000 0x200>, /* isp_isif *
+			      <0x52011200 0x080>; /* isp_ipipeif *
+			reg-names = "top",
+			            "csi2_a_regs1",
+			            "camerarx_core1",
+			            "csi2_b_regs1",
+			            "camerarx_core2",
+			            "bte",
+			            "isp_sys1",
+			            "isp_resizer",
+			            "isp_ipipe",
+			            "isp_isif",
+			            "isp_ipipeif";
+			status = "ok";
+			ti,hwmods = "iss";
+			interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
+			//clocks = <&ducati_clk_mux_ck>, <&iss_ctrlclk>;
+			//clock-names = "fck", "iss_ctrlclk";
+			dmas = <&sdma 9>, <&sdma 10>, <&sdma 12>, <&sdma 13>;
+			dma-names = "1", "2", "3", "4";
+
+		        csi21: csi2 {
+				endpoint {
+					channel = "0";
+					clock-lanes = <0>;
+					data-lanes = <1>;
+					//remote-endpoint = <&ov5640_1>;
+				};
+			};
+		};
 	};
 */
 };
@@ -135,18 +129,18 @@
 			OMAP4_IOPAD(0x0be, PIN_OUTPUT | MUX_MODE3)		/* cam_strobe.gpio_82: uart78_clk_en */
 		>;
 	};
-///*
+/*
 	iss_csi21_pins: pinmux_iss_csi21_pins {
 		pinctrl-single,pins = <
-			OMAP4_IOPAD(0x0a0, PIN_INPUT | MUX_MODE0)		/* csi21_dx0.csi21_dx0 */
-			OMAP4_IOPAD(0x0a2, PIN_INPUT | MUX_MODE0)		/* csi21_dy0.csi21_dy0 */
-			OMAP4_IOPAD(0x0a4, PIN_INPUT | MUX_MODE0)		/* csi21_dx1.csi21_dx1 */
-			OMAP4_IOPAD(0x0a6, PIN_INPUT | MUX_MODE0)		/* csi21_dy1.csi21_dy1 */
-			OMAP4_IOPAD(0x0a8, PIN_INPUT | MUX_MODE0)		/* csi21_dx2.csi21_dx2 */
-			OMAP4_IOPAD(0x0aa, PIN_INPUT | MUX_MODE0)		/* csi21_dy2.csi21_dy2 */
+			OMAP4_IOPAD(0x0a0, PIN_INPUT | MUX_MODE0)		/* csi21_dx0.csi21_dx0 *
+			OMAP4_IOPAD(0x0a2, PIN_INPUT | MUX_MODE0)		/* csi21_dy0.csi21_dy0 *
+			OMAP4_IOPAD(0x0a4, PIN_INPUT | MUX_MODE0)		/* csi21_dx1.csi21_dx1 *
+			OMAP4_IOPAD(0x0a6, PIN_INPUT | MUX_MODE0)		/* csi21_dy1.csi21_dy1 *
+			OMAP4_IOPAD(0x0a8, PIN_INPUT | MUX_MODE0)		/* csi21_dx2.csi21_dx2 *
+			OMAP4_IOPAD(0x0aa, PIN_INPUT | MUX_MODE0)		/* csi21_dy2.csi21_dy2 *
 		>;
 	};
-//*/
+*/
 };
 
 &i2c2 {
@@ -358,76 +352,6 @@
 
 	clock-frequency = <100000>;
 
-
-	i2c-mux@70 {
-		compatible = "nxp,pca9542";	// need the compatible
-		#address-cells = <1>;
-		#size-cells = <0>;
-		reg = <0x70>;
-
-		i2c@0 {
-			#address-cells = <1>;
-			#size-cells = <0>;
-			reg = <0>;
-
-			ov5640_1_gpio: pca9554@38 {			// address?
-				compatible = "nxp,pca9554";
-				reg = <0x38>;
-				gpio-controller;
-				#gpio-cells = <2>;
-			};
-
-			ov5640_flash: pca9633@60 {	// check the address
-				compatible = "nxp,pca9633";
-				#address-cells = <1>;
-				#size-cells = <0>;
-				reg = <0x60>;		// check the address
-
-				tl@0{
-					label = "ov5640_1_flash_tl";
-					reg = <0>;
-				};
-				tr@1{
-					label = "ov5640_1_flash_tr";
-					reg = <1>;
-				};
-				bl@2{
-					label = "ov5640_1_flash_bl";
-					reg = <2>;
-				};
-				br@3{
-					label = "ov5640_1_flash_br";
-					reg = <3>;
-				};
-			};
-
-			ov5640_1: camera@3c {
-				compatible = "omnivision,ov5640";
-				status = "ok";
-				reg = <0x3c>;
-
-				clocks = <&ov5640_1_clk>;
-				clock-names = "xclk";
-
-				DOVDD-supply = <&regulator1800>;
-				AVDD-supply = <&regulator2800>;
-				DVDD-supply = <&regulator1500>;
-
-				powerdown-gpios = <&ov5640_1_gpio 5 GPIO_ACTIVE_HIGH>; // power down 
-				reset-gpios = <&ov5640_1_gpio 6 GPIO_ACTIVE_LOW>; // reset 
-
-				port {
-					ov5640_11: endpoint {
-						clock-lanes = <0>;
-						data-lanes = <1>;
-						remote-endpoint = <&csi_endpoint>;
-					};
-				};
-			};
-
-
-		};
-	};
 	/* optional 1K EEPROM with revision information */
 	eeprom@51 {
 		compatible = "atmel,24c01";
@@ -447,18 +371,6 @@
 
 &iss {
 	status = "ok";
-	//status = "disabled";
-	pinctrl-names = "default";
-	pinctrl-0 = <&iss_csi21_pins>;
-
-	csi21: csi2 {
-		port {
-			csi_endpoint: endpoint {
-				channel = "0";
-				clock-lanes = <0>;
-				data-lanes = <1>;
-				remote-endpoint = <&ov5640_11>;
-			};
-		};
-	};
+	//pinctrl-names = "default";
+	//pinctrl-0 = <&iss_csi21_pins>;
 };

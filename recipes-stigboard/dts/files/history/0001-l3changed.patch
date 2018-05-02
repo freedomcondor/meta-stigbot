@@ -1,0 +1,29 @@
+From b3a92ed3d236f614a13577292123e7176f4fa682 Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Tue, 10 Apr 2018 13:33:56 +0200
+Subject: [PATCH] l3changed
+
+---
+ drivers/bus/omap_l3_noc.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/bus/omap_l3_noc.c b/drivers/bus/omap_l3_noc.c
+index 5012e3ad1225..94b114c40fa4 100644
+--- a/drivers/bus/omap_l3_noc.c
++++ b/drivers/bus/omap_l3_noc.c
+@@ -191,8 +191,12 @@ static irqreturn_t l3_interrupt_handler(int irq, void *_l3)
+ 
+ 		/* Get the corresponding error and analyse */
+ 		if (err_reg) {
++			pr_err("harry said : l3 module = %d",i);
++			pr_err("harry said : l3 irq = %d, err_reg = %x",irq,err_reg);
++			pr_err("harry said : mask = %x, app_bits = %x, dbg_bits = %x",inttype,flag_mux->mask_app_bits,flag_mux->mask_dbg_bits);
+ 			/* Identify the source from control status register */
+ 			err_src = __ffs(err_reg);
++			pr_err("harry said : err_src = %x",err_src);
+ 
+ 			ret = l3_handle_target(l3, base, flag_mux, err_src);
+ 
+-- 
+2.14.1
+

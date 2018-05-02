@@ -1,0 +1,44 @@
+From 566e7620c8d50d36285b767f222054a0f17c1fa4 Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Tue, 20 Mar 2018 15:33:47 +0100
+Subject: [PATCH] add a module in omap4.dtsi
+
+---
+ arch/arm/boot/dts/omap4.dtsi | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+
+diff --git a/arch/arm/boot/dts/omap4.dtsi b/arch/arm/boot/dts/omap4.dtsi
+index 1bcf66ec209f..4696a9955850 100644
+--- a/arch/arm/boot/dts/omap4.dtsi
++++ b/arch/arm/boot/dts/omap4.dtsi
+@@ -573,6 +573,27 @@
+ 			#iommu-cells = <0>;
+ 		};
+ 
++		target-module@52000000 {
++		//omap4iss : omap4iss@52000000 {
++			compatible = "simple-bus";
++			ti,hwmods = "iss";
++
++			/* reg here will just contain rev, sysc and syss eventually */
++			reg = <0x52000000 0x1000000>;
++
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0x52000000 0x1000000>;
++
++			iss: iss@0 {
++				compatible = "ti,omap4iss";
++				reg =  <0 0x0 0x200>;
++				interrupts = <GIC_SPI 24 IRQ_TYPE_LEVEL_HIGH>;
++				dmas = <&sdma 9>, <&sdma 10>, <&sdma 12>, <&sdma 13>;
++				dma-names = "1", "2", "3", "4";
++			};
++		};
++
+ 		mmu_ipu: mmu@55082000 {
+ 			compatible = "ti,omap4-iommu";
+ 			reg = <0x55082000 0x100>;
+-- 
+2.14.1
+

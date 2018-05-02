@@ -1,0 +1,84 @@
+From 1b97262a8e271cd42c236ffeefb647b7a3ffd7b8 Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Wed, 18 Apr 2018 11:43:35 +0200
+Subject: [PATCH] regulatorchanged
+
+---
+ drivers/regulator/fixed.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/regulator/fixed.c b/drivers/regulator/fixed.c
+index 988a7472c2ab..2fa6b6a9e4b8 100644
+--- a/drivers/regulator/fixed.c
++++ b/drivers/regulator/fixed.c
+@@ -104,11 +104,15 @@ static int reg_fixed_voltage_probe(struct platform_device *pdev)
+ 	struct regulator_config cfg = { };
+ 	int ret;
+ 
++	pr_err("regulator_fixed, probe start");
++
+ 	drvdata = devm_kzalloc(&pdev->dev, sizeof(struct fixed_voltage_data),
+ 			       GFP_KERNEL);
+ 	if (!drvdata)
+ 		return -ENOMEM;
+ 
++	pr_err("regulator_fixed, after drvdata");
++
+ 	if (pdev->dev.of_node) {
+ 		config = of_get_fixed_voltage_config(&pdev->dev,
+ 						     &drvdata->desc);
+@@ -118,9 +122,13 @@ static int reg_fixed_voltage_probe(struct platform_device *pdev)
+ 		config = dev_get_platdata(&pdev->dev);
+ 	}
+ 
++	pr_err("regulator_fixed, after voltage config1");
++
+ 	if (!config)
+ 		return -ENOMEM;
+ 
++	pr_err("regulator_fixed, after voltage config2");
++
+ 	drvdata->desc.name = devm_kstrdup(&pdev->dev,
+ 					  config->supply_name,
+ 					  GFP_KERNEL);
+@@ -128,6 +136,9 @@ static int reg_fixed_voltage_probe(struct platform_device *pdev)
+ 		dev_err(&pdev->dev, "Failed to allocate supply name\n");
+ 		return -ENOMEM;
+ 	}
++
++	pr_err("regulator_fixed, after supply name");
++
+ 	drvdata->desc.type = REGULATOR_VOLTAGE;
+ 	drvdata->desc.owner = THIS_MODULE;
+ 	drvdata->desc.ops = &fixed_voltage_ops;
+@@ -145,6 +156,8 @@ static int reg_fixed_voltage_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
++	pr_err("regulator_fixed, after input supply");
++
+ 	if (config->microvolts)
+ 		drvdata->desc.n_voltages = 1;
+ 
+@@ -183,11 +196,18 @@ static int reg_fixed_voltage_probe(struct platform_device *pdev)
+ 		return ret;
+ 	}
+ 
++	pr_err("regulator_fixed, register");
++
+ 	platform_set_drvdata(pdev, drvdata);
+ 
+ 	dev_dbg(&pdev->dev, "%s supplying %duV\n", drvdata->desc.name,
+ 		drvdata->desc.fixed_uV);
+ 
++	pr_err("%s supplying %duV\n", drvdata->desc.name,
++		drvdata->desc.fixed_uV);
++
++	pr_err("regulator_fixed, probe end");
++
+ 	return 0;
+ }
+ 
+-- 
+2.14.1
+

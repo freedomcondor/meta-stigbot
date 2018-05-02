@@ -13,6 +13,8 @@ IMAGE_INSTALL += " netinterface \
     pmstatus \
     speedcontrol \
     tcpcontrol \
+    rwmem \
+    media-ctl \
 "
 
 CORE_OS = " \

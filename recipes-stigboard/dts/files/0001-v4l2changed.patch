@@ -1,0 +1,26 @@
+From f838acb83a0825c9f5a1bfbbef9d70b2dea40f6f Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Mon, 23 Apr 2018 17:39:19 +0200
+Subject: [PATCH] v4l2changed
+
+---
+ drivers/media/v4l2-core/v4l2-device.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/v4l2-core/v4l2-device.c b/drivers/media/v4l2-core/v4l2-device.c
+index 937c6de85606..730885640675 100644
+--- a/drivers/media/v4l2-core/v4l2-device.c
++++ b/drivers/media/v4l2-core/v4l2-device.c
+@@ -185,7 +185,9 @@ int v4l2_device_register_subdev(struct v4l2_device *v4l2_dev,
+ #if defined(CONFIG_MEDIA_CONTROLLER)
+ 	/* Register the entity. */
+ 	if (v4l2_dev->mdev) {
++		pr_err("before media_device_register_entity");
+ 		err = media_device_register_entity(v4l2_dev->mdev, entity);
++		pr_err("after media_device_register_entity, err = %d",err);
+ 		if (err < 0)
+ 			goto error_module;
+ 	}
+-- 
+2.14.1
+

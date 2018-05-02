@@ -1,0 +1,43 @@
+From 70196f196956a89c734e21cd3e0770130dc5720c Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Tue, 20 Mar 2018 16:39:20 +0100
+Subject: [PATCH] platform marked
+
+---
+ drivers/of/platform.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/of/platform.c b/drivers/of/platform.c
+index ac15d0e3d27d..90a9f86913b5 100644
+--- a/drivers/of/platform.c
++++ b/drivers/of/platform.c
+@@ -414,17 +414,26 @@ int of_platform_bus_probe(struct device_node *root,
+ 	struct device_node *child;
+ 	int rc = 0;
+ 
++	pr_err("simple-bus,probe start");
++
+ 	root = root ? of_node_get(root) : of_find_node_by_path("/");
+ 	if (!root)
+ 		return -EINVAL;
+ 
++	pr_err("simple-bus,after find root");
++
+ 	pr_debug("%s()\n", __func__);
+ 	pr_debug(" starting at: %pOF\n", root);
+ 
++	pr_err("%s()\n", __func__);
++	pr_err(" starting at: %pOF\n", root);
++
+ 	/* Do a self check of bus type, if there's a match, create children */
+ 	if (of_match_node(matches, root)) {
+ 		rc = of_platform_bus_create(root, matches, NULL, parent, false);
++		pr_err("searching child");
+ 	} else for_each_child_of_node(root, child) {
++		pr_err("searching child");
+ 		if (!of_match_node(matches, child))
+ 			continue;
+ 		rc = of_platform_bus_create(child, matches, NULL, parent, false);
+-- 
+2.14.1
+

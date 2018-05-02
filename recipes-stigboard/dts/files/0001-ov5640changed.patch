@@ -1,0 +1,25 @@
+From 6832977408c691d4ae9171b64ca2652705bb74a1 Mon Sep 17 00:00:00 2001
+From: Condor3397 <freedomcondor@126.com>
+Date: Thu, 19 Apr 2018 16:52:49 +0200
+Subject: [PATCH] ov5640changed
+
+---
+ drivers/media/i2c/ov5640.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 39a2269c0bee..6464475b1ad3 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -2292,6 +2292,8 @@ static int ov5640_probe(struct i2c_client *client,
+ 	if (ret)
+ 		goto free_ctrls;
+ 
++	pr_err("ov5640, probe end");
++
+ 	return 0;
+ 
+ free_ctrls:
+-- 
+2.14.1
+
